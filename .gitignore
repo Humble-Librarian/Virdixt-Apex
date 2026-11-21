@@ -30,6 +30,11 @@ htmlcov/
 scratch/
 temp/
 
+# Local research & intelligence (do not track)
+RESEARCH_INTELLIGENCE.md
+research/
+*.research.md
+
 # OS specific
 .DS_Store
 Thumbs.db

@@ -11,7 +11,7 @@ from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field
 import psutil
 
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -196,6 +196,39 @@ async def parse_form4_xml(payload: Form4ParseRequest):
         "transaction_count": len(txs),
         "transactions": [t.model_dump() for t in txs],
         "summary": summary.model_dump(),
+    }
+
+
+@app.post("/api/upload-audio")
+async def analyze_audio_upload(file: UploadFile = File(...)):
+    if not file.filename.lower().endswith((".wav", ".wave")):
+        raise HTTPException(
+            status_code=400,
+            detail="Only .wav audio files are supported for DSP biomarker extraction.",
+        )
+    content = await file.read()
+    if len(content) > 50 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Audio file exceeds 50MB ceiling.")
+
+    from apex.audio.prosody import NativeAcousticStressExtractor
+
+    extractor = NativeAcousticStressExtractor()
+    metrics = extractor.extract(content)
+    vector = extractor.extract_vector(content)
+    return {
+        "filename": file.filename,
+        "metrics": {
+            "f0_mean_hz": metrics.f0_mean,
+            "f0_std_hz": metrics.f0_std,
+            "jitter_local_percent": round(metrics.jitter_local * 100.0, 3),
+            "jitter_z_score": metrics.z_jitter,
+            "shimmer_local_db": metrics.shimmer_local_db,
+            "shimmer_z_score": metrics.z_shimmer,
+            "hnr_db": metrics.hnr_db,
+            "cmdi_score": round(metrics.stress_score / 10.0, 2),
+            "vocal_stress_rating": metrics.stress_level,
+        },
+        "vector": vector.model_dump(),
     }
 
 

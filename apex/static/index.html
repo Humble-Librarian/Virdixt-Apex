@@ -406,7 +406,12 @@
             </div>
           </div>
 
-          <div style="margin-top: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--accent-cyan);">2. Unscripted Acoustic Biomarkers</div>
+          <div style="margin-top: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--accent-cyan); display:flex; justify-content:space-between; align-items:center;">
+            <span>2. Unscripted Acoustic Biomarkers</span>
+            <label for="audio-file-input" style="cursor:pointer; font-size:11px; color:var(--accent-cyan); text-decoration:underline;">Upload .wav file</label>
+            <input type="file" id="audio-file-input" accept=".wav" style="display:none;" onchange="handleAudioUpload(event)">
+          </div>
+          <div id="audio-upload-status" style="font-size:11px; color:var(--text-muted); margin-bottom:6px;"></div>
           <div class="grid-2">
             <div class="form-group">
               <label class="form-label">Vocal Jitter (z-score)</label>
@@ -778,6 +783,28 @@
         loadTelemetry();
       } catch (e) {
         alert("Form 4 parse error: " + e);
+      }
+    }
+
+    async function handleAudioUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const status = document.getElementById('audio-upload-status');
+      status.innerText = `Processing DSP on ${file.name}...`;
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const res = await fetch('/api/upload-audio', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        document.getElementById('ac-jitter').value = data.metrics.jitter_z_score;
+        document.getElementById('ac-cmdi').value = data.metrics.cmdi_score;
+        status.innerHTML = `<span style="color:var(--accent-green)">✔ DSP Analyzed: F0=${data.metrics.f0_mean_hz}Hz, Jitter=${data.metrics.jitter_local_percent}%, CMDI=${data.metrics.cmdi_score} (${data.metrics.vocal_stress_rating})</span>`;
+        loadTelemetry();
+      } catch (e) {
+        status.innerHTML = `<span style="color:var(--accent-red)">Error analyzing audio: ${e}</span>`;
       }
     }
 

@@ -134,6 +134,14 @@ class VirdixtCoreAdapter:
             except Exception:
                 pass
 
+        # Standalone native DSP audio extractor (pure Python + NumPy + SciPy)
+        try:
+            from apex.audio.prosody import NativeAcousticStressExtractor
+            native_extractor = NativeAcousticStressExtractor()
+            return native_extractor.extract_vector(audio_path_or_array, sr=sample_rate)
+        except Exception:
+            pass
+
         # Standalone mock/fallback for synthetic audio signals
         return self._fallback_audio_extract(audio_path_or_array)
 

@@ -3,7 +3,7 @@
 > **Air-Gapped Activist Short-Seller & Forensic Deception Alpha Engine**  
 > *Multimodal Cross-Examination: SEC Financials + Unscripted Q&A Acoustics + Form 4 Insider Dumping*
 
-[![Tests](https://img.shields.io/badge/Tests-30%20Passed%20%7C%204.3s-brightgreen?style=for-the-badge)](https://github.com/Humble-Librarian/Virdixt-Apex)
+[![Tests](https://img.shields.io/badge/Tests-32%20Passed%20%7C%200.9s-brightgreen?style=for-the-badge)](https://github.com/Humble-Librarian/Virdixt-Apex)
 [![Hardware Profile](https://img.shields.io/badge/RAM-164%20MB%20Peak%20(i5%20CPU)-blue?style=for-the-badge)](https://github.com/Humble-Librarian/Virdixt-Apex)
 [![Air-Gapped](https://img.shields.io/badge/Security-100%25%20Air--Gapped-red?style=for-the-badge)](https://github.com/Humble-Librarian/Virdixt-Apex)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)](https://github.com/Humble-Librarian/Virdixt-Apex)

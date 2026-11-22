@@ -77,10 +77,8 @@ class VirdixtCoreAdapter:
             except Exception:
                 pass
 
-        # Standalone deterministic fallback / enrichment
-        if altman_z is None:
-            altman_z, altman_zone = self._calc_altman_z(financial_data)
-        if beneish_m is None:
+        # If explicit 8-variable Beneish sub-indices are provided, prefer the rigorous model
+        if "dsri" in financial_data or beneish_m is None:
             beneish_m, beneish_risk = self._calc_beneish_m(financial_data)
 
         # Dechow F-Score computation (Novel to Apex)

@@ -1,0 +1,63 @@
+{
+  "ticker": "AAPL",
+  "company_name": "Apple Inc.",
+  "analysis_date": "2023-11-03",
+  "days_to_cover": 1.8,
+  "borrow_fee_annual_percent": 0.25,
+  "financials": {
+    "total_assets": 352000000000,
+    "working_capital": -1700000000,
+    "retained_earnings": -214000000,
+    "ebit": 114300000000,
+    "market_cap": 2800000000000,
+    "total_liabilities": 290000000000,
+    "sales": 383000000000,
+    "net_income": 97000000000,
+    "operating_cash_flow": 110500000000,
+    "dsri": 0.98,
+    "gmi": 0.95,
+    "aqi": 0.92,
+    "sgi": 1.02,
+    "depi": 1.01,
+    "sgai": 0.96,
+    "lvgi": 1.05,
+    "tata": -0.04,
+    "rsst_accrual": 0.05,
+    "delta_receivables": 0.01,
+    "delta_inventory": -0.01,
+    "soft_assets_ratio": 0.35,
+    "delta_cash_sales": 0.04,
+    "delta_roa": 0.02,
+    "securities_issued": false
+  },
+  "acoustic": {
+    "f0_mean_hz": 128.5,
+    "f0_std_hz": 14.2,
+    "jitter_local_percent": 0.85,
+    "jitter_z_score": 0.7,
+    "shimmer_local_db": 0.65,
+    "shimmer_z_score": 0.8,
+    "hnr_db": 19.5,
+    "cmdi_score": 1.4,
+    "vocal_stress_rating": "CALM",
+    "acute_stress_flag": false
+  },
+  "linguistic": {
+    "analyst_question": "How are you seeing gross margins evolve with the ramp of the 3-nanometer silicon in the iPhone 15 Pro family?",
+    "executive_answer": "Gross margins for the December quarter are expected to be between 45% and 46%, benefiting from product mix and strong customer demand across Services and Pro tiers.",
+    "gunning_fog_index": 12.1,
+    "epistemic_hedging_score": 9.5,
+    "qa_semantic_alignment": 0.82,
+    "is_evasive_deflection": false,
+    "sentiment_bullishness": 0.62
+  },
+  "insider": {
+    "total_sales_value": 0.0,
+    "total_purchases_value": 0.0,
+    "opportunistic_sales_count": 0,
+    "routine_sales_count": 0,
+    "c_suite_sellers": [],
+    "dump_velocity_v": 0.0,
+    "is_abnormal_liquidation": false
+  }
+}

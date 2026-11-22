@@ -1,0 +1,63 @@
+{
+  "ticker": "SIVB",
+  "company_name": "Silicon Valley Bank Financial Group",
+  "analysis_date": "2023-03-08",
+  "days_to_cover": 9.4,
+  "borrow_fee_annual_percent": 38.5,
+  "financials": {
+    "total_assets": 211000000000,
+    "working_capital": -15000000000,
+    "retained_earnings": 11000000000,
+    "ebit": -1800000000,
+    "market_cap": 16000000000,
+    "total_liabilities": 195000000000,
+    "sales": 5500000000,
+    "net_income": 1500000000,
+    "operating_cash_flow": -4200000000,
+    "dsri": 1.45,
+    "gmi": 1.85,
+    "aqi": 1.60,
+    "sgi": 1.15,
+    "depi": 0.90,
+    "sgai": 1.35,
+    "lvgi": 1.80,
+    "tata": 0.12,
+    "rsst_accrual": 0.95,
+    "delta_receivables": 0.28,
+    "delta_inventory": 0.05,
+    "soft_assets_ratio": 0.78,
+    "delta_cash_sales": -0.22,
+    "delta_roa": -0.15,
+    "securities_issued": true
+  },
+  "acoustic": {
+    "f0_mean_hz": 172.4,
+    "f0_std_hz": 31.8,
+    "jitter_local_percent": 2.45,
+    "jitter_z_score": 3.4,
+    "shimmer_local_db": 1.65,
+    "shimmer_z_score": 2.8,
+    "hnr_db": 10.4,
+    "cmdi_score": 8.9,
+    "vocal_stress_rating": "PANIC_ANOMALY",
+    "acute_stress_flag": true
+  },
+  "linguistic": {
+    "analyst_question": "With $15 billion in unrealized losses in the HTM portfolio, how do you handle deposit outflows without dilutive emergency equity capital?",
+    "executive_answer": "We have an extraordinarily resilient deposit base with deep relationships across the venture ecosystem and our liquidity profile is robust and well positioned for any scenario.",
+    "gunning_fog_index": 21.8,
+    "epistemic_hedging_score": 54.0,
+    "qa_semantic_alignment": 0.26,
+    "is_evasive_deflection": true,
+    "sentiment_bullishness": 0.82
+  },
+  "insider": {
+    "total_sales_value": 3570000.0,
+    "total_purchases_value": 0.0,
+    "opportunistic_sales_count": 1,
+    "routine_sales_count": 0,
+    "c_suite_sellers": ["Gregory W. Becker (Chief Executive Officer) - $3.57M"],
+    "dump_velocity_v": 35.7,
+    "is_abnormal_liquidation": true
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "ticker": "WDI",
+  "company_name": "Wirecard AG",
+  "analysis_date": "2020-04-28",
+  "days_to_cover": 11.2,
+  "borrow_fee_annual_percent": 48.0,
+  "financials": {
+    "total_assets": 5800000000,
+    "working_capital": -1200000000,
+    "retained_earnings": 1400000000,
+    "ebit": 450000000,
+    "market_cap": 14000000000,
+    "total_liabilities": 3900000000,
+    "sales": 2800000000,
+    "net_income": 400000000,
+    "operating_cash_flow": -350000000,
+    "dsri": 2.40,
+    "gmi": 1.50,
+    "aqi": 1.85,
+    "sgi": 1.75,
+    "depi": 0.70,
+    "sgai": 1.25,
+    "lvgi": 1.65,
+    "tata": 0.22,
+    "rsst_accrual": 1.30,
+    "delta_receivables": 0.42,
+    "delta_inventory": 0.10,
+    "soft_assets_ratio": 0.88,
+    "delta_cash_sales": -0.28,
+    "delta_roa": -0.18,
+    "securities_issued": true
+  },
+  "acoustic": {
+    "f0_mean_hz": 185.0,
+    "f0_std_hz": 34.2,
+    "jitter_local_percent": 2.80,
+    "jitter_z_score": 3.8,
+    "shimmer_local_db": 1.80,
+    "shimmer_z_score": 3.1,
+    "hnr_db": 9.2,
+    "cmdi_score": 9.3,
+    "vocal_stress_rating": "PANIC_ANOMALY",
+    "acute_stress_flag": true
+  },
+  "linguistic": {
+    "analyst_question": "Why did the KPMG special audit fail to confirm the existence of the €1.9 billion in Philippine escrow trust accounts?",
+    "executive_answer": "We categorically reject these malicious allegations spread by short-sellers and are completely confident that our global merchant processing volumes are authentic and verified.",
+    "gunning_fog_index": 22.9,
+    "epistemic_hedging_score": 62.0,
+    "qa_semantic_alignment": 0.22,
+    "is_evasive_deflection": true,
+    "sentiment_bullishness": 0.90
+  },
+  "insider": {
+    "total_sales_value": 8500000.0,
+    "total_purchases_value": 0.0,
+    "opportunistic_sales_count": 3,
+    "routine_sales_count": 0,
+    "c_suite_sellers": ["Markus Braun (CEO) - $6.5M", "Jan Marsalek (COO) - $2.0M"],
+    "dump_velocity_v": 42.0,
+    "is_abnormal_liquidation": true
+  }
+}

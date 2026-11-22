@@ -1,0 +1,63 @@
+{
+  "ticker": "CVNA",
+  "company_name": "Carvana Co.",
+  "analysis_date": "2022-11-04",
+  "days_to_cover": 8.8,
+  "borrow_fee_annual_percent": 34.0,
+  "financials": {
+    "total_assets": 9500000000,
+    "working_capital": -850000000,
+    "retained_earnings": -2200000000,
+    "ebit": -650000000,
+    "market_cap": 1400000000,
+    "total_liabilities": 9100000000,
+    "sales": 13500000000,
+    "net_income": -800000000,
+    "operating_cash_flow": -1100000000,
+    "dsri": 1.85,
+    "gmi": 1.70,
+    "aqi": 1.45,
+    "sgi": 1.65,
+    "depi": 0.85,
+    "sgai": 1.40,
+    "lvgi": 2.10,
+    "tata": 0.15,
+    "rsst_accrual": 0.85,
+    "delta_receivables": 0.22,
+    "delta_inventory": 0.35,
+    "soft_assets_ratio": 0.82,
+    "delta_cash_sales": -0.18,
+    "delta_roa": -0.22,
+    "securities_issued": true
+  },
+  "acoustic": {
+    "f0_mean_hz": 158.0,
+    "f0_std_hz": 26.5,
+    "jitter_local_percent": 2.10,
+    "jitter_z_score": 2.9,
+    "shimmer_local_db": 1.35,
+    "shimmer_z_score": 2.4,
+    "hnr_db": 11.2,
+    "cmdi_score": 8.4,
+    "vocal_stress_rating": "PANIC_ANOMALY",
+    "acute_stress_flag": true
+  },
+  "linguistic": {
+    "analyst_question": "Can you walk us through the covenant headroom on your senior unsecured notes given the current GPU per unit margin compression?",
+    "executive_answer": "We feel strongly about the flexibility of our balance sheet and the transformative operational efficiencies of the ADESA network going into next fiscal year.",
+    "gunning_fog_index": 20.2,
+    "epistemic_hedging_score": 46.0,
+    "qa_semantic_alignment": 0.30,
+    "is_evasive_deflection": true,
+    "sentiment_bullishness": 0.78
+  },
+  "insider": {
+    "total_sales_value": 5200000.0,
+    "total_purchases_value": 0.0,
+    "opportunistic_sales_count": 2,
+    "routine_sales_count": 0,
+    "c_suite_sellers": ["Ernie Garcia III (CEO) - $5.2M"],
+    "dump_velocity_v": 28.5,
+    "is_abnormal_liquidation": true
+  }
+}

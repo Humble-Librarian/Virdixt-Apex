@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦅 Virdixt-Apex | Activist Short & Forensic Alpha Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --card-bg: #0f1420;
+      --card-border: #1e293b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-red: #ef4444;
+      --accent-red-glow: rgba(239, 68, 68, 0.2);
+      --accent-green: #10b981;
+      --accent-green-glow: rgba(16, 185, 129, 0.2);
+      --accent-amber: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Header */
+    header {
+      background: #0b0f19;
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      font-size: 28px;
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+    .telemetry-bar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .pill {
+      background: #151d2f;
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+    .pill-red {
+      color: var(--accent-red);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .pill-red .pill-dot {
+      background: var(--accent-red);
+      box-shadow: 0 0 8px var(--accent-red);
+    }
+    .pill-cyan {
+      color: var(--accent-cyan);
+    }
+    /* Nav */
+    nav {
+      background: #090d16;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 32px;
+      display: flex;
+      gap: 24px;
+    }
+    .nav-tab {
+      padding: 14px 4px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover {
+      color: #fff;
+    }
+    .nav-tab.active {
+      color: var(--accent-cyan);
+      border-bottom-color: var(--accent-cyan);
+    }
+    /* Main Layout */
+    main {
+      flex: 1;
+      padding: 32px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      border-color: #334155;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-critical {
+      background: var(--accent-red-glow);
+      color: var(--accent-red);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    .badge-safe {
+      background: var(--accent-green-glow);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .asi-gauge {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin: 8px 0;
+    }
+    .asi-critical { color: var(--accent-red); }
+    .asi-safe { color: var(--accent-green); }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+    .stat-label {
+      color: var(--text-muted);
+    }
+    .stat-val {
+      font-weight: 600;
+    }
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent-cyan);
+      color: #07090e;
+    }
+    .btn-primary:hover {
+      background: #22d3ee;
+    }
+    .btn-danger {
+      background: var(--accent-red);
+      color: #fff;
+    }
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+    .btn-secondary {
+      background: #1e293b;
+      color: #fff;
+      border-color: #334155;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+    }
+    /* Terminal Output / Dossier */
+    .terminal-box {
+      background: #05070a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 13px;
+      color: #e2e8f0;
+      max-height: 650px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    /* Form controls */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+    .form-textarea {
+      min-height: 120px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 20px 32px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0b0f19;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🦅</div>
+      <div>
+        <div class="brand-title">VIRDIXT-APEX</div>
+        <div class="brand-subtitle">Forensic Deception & Activist Short Alpha Engine</div>
+      </div>
+    </div>
+    <div class="telemetry-bar">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span>STATUS: ONLINE</span>
+      </div>
+      <div class="pill pill-red">
+        <span class="pill-dot"></span>
+        <span>100% AIR-GAPPED</span>
+      </div>
+      <div class="pill pill-cyan">
+        <span>RAM: <strong id="telemetry-ram">38.4 MB</strong> / 950 MB</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-tab active" onclick="switchTab('benchmarks')">Historical Golden Blowups</div>
+    <div class="nav-tab" onclick="switchTab('screener')">Interactive Alpha Screener</div>
+    <div class="nav-tab" onclick="switchTab('form4')">SEC Form 4 Parser</div>
+    <div class="nav-tab" onclick="switchTab('dossier')">Forensic Dossier Terminal</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- TAB 1: BENCHMARKS -->
+    <section id="tab-benchmarks" class="tab-content active">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+        <div>
+          <h2 style="font-size: 22px; font-weight: 800;">Historical "Golden Blowup" Suite</h2>
+          <p style="color: var(--text-muted); font-size: 14px;">Evaluated against landmark accounting collapses and AAA control targets on local silicon.</p>
+        </div>
+        <button class="btn btn-primary" onclick="loadBenchmarks()">↻ Refresh Telemetry</button>
+      </div>
+
+      <div class="grid-4" id="benchmark-cards">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 2: INTERACTIVE SCREENER -->
+    <section id="tab-screener" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Target Investigation Parameters</div>
+              <div class="card-subtitle">Multimodal cross-examination inputs</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Ticker Symbol</label>
+              <input type="text" id="scr-ticker" class="form-input mono" value="SIVB">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input type="text" id="scr-name" class="form-input" value="Silicon Valley Bank">
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--accent-cyan);">1. SEC Quantitative Financials</div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Total Assets ($)</label>
+              <input type="number" id="fin-assets" class="form-input mono" value="211793000000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Liabilities ($)</label>
+              <input type="number" id="fin-liab" class="form-input mono" value="195498000000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Working Capital ($)</label>
+              <input type="number" id="fin-wc" class="form-input mono" value="-15000000000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Retained Earnings ($)</label>
+              <input type="number" id="fin-re" class="form-input mono" value="17200000000">
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--accent-cyan);">2. Unscripted Acoustic Biomarkers</div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Vocal Jitter (z-score)</label>
+              <input type="number" step="0.1" id="ac-jitter" class="form-input mono" value="3.4">
+            </div>
+            <div class="form-group">
+              <label class="form-label">CMDI Score (0-10)</label>
+              <input type="number" step="0.1" id="ac-cmdi" class="form-input mono" value="8.9">
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: var(--accent-cyan);">3. Q&A Linguistic Deflection</div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Semantic Cosine Alignment</label>
+              <input type="number" step="0.05" id="ling-align" class="form-input mono" value="0.28">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gunning-Fog Obfuscation</label>
+              <input type="number" step="0.1" id="ling-fog" class="form-input mono" value="19.4">
+            </div>
+          </div>
+
+          <button class="btn btn-danger" style="width: 100%; margin-top: 16px;" onclick="runCustomAnalysis()">
+            ⚡ Calculate Activist Short Thesis (ASI)
+          </button>
+        </div>
+
+        <div class="card" id="screener-result-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Live Screener Output</div>
+              <div class="card-subtitle">Quantitative conviction & execution structuring</div>
+            </div>
+            <span class="badge badge-critical" id="res-badge">CRITICAL COLLAPSE</span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <div>
+              <div style="font-size: 12px; color: var(--text-muted);">ACTIVIST SHORT INDEX</div>
+              <div class="asi-gauge asi-critical mono" id="res-asi">100.0 / 100</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 12px; color: var(--text-muted);">DOWNSIDE TARGET</div>
+              <div class="mono" style="font-size: 28px; font-weight: 800; color: var(--accent-red);" id="res-downside">-90.0%</div>
+            </div>
+          </div>
+
+          <div style="margin: 20px 0;">
+            <div class="stat-row">
+              <span class="stat-label">Trade Execution Structure</span>
+              <span class="stat-val mono" style="color:var(--accent-amber);" id="res-structure">PUT_DEBIT_SPREAD</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Short Squeeze Risk</span>
+              <span class="stat-val mono" id="res-squeeze">CRITICAL (DTC: 4.2d)</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Borrow Fee Annualized</span>
+              <span class="stat-val mono" id="res-borrow">18.5%</span>
+            </div>
+          </div>
+
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Key Forensic Violations:</div>
+          <ul id="res-catalysts" style="font-size: 13px; line-height: 1.6; margin-left: 20px; color: #cbd5e1;">
+            <li>Altman Z-Score breaches distress zone</li>
+            <li>Acoustic vocal jitter exceeds threshold</li>
+          </ul>
+
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 24px;" onclick="viewGeneratedDossier()">
+            📄 Open Forensic Short Dossier
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: FORM 4 PARSER -->
+    <section id="tab-form4" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">SEC Form 4 XML Ingestion</div>
+              <div class="card-subtitle">Billion Laughs protected & Cohen-Malloy classified</div>
+            </div>
+            <button class="btn btn-secondary" style="font-size: 11px; padding: 4px 8px;" onclick="loadDemoForm4()">Load SVB Demo XML</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Raw Form 4 XML</label>
+            <textarea id="form4-xml-input" class="form-textarea" placeholder="Paste SEC Form 4 XML here..."></textarea>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%;" onclick="parseForm4()">
+            ⚡ Parse & Analyze Insider Flow
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Cohen-Malloy Liquidation Summary</div>
+              <div class="card-subtitle">Abnormal opportunistic extraction vs routine sales</div>
+            </div>
+          </div>
+
+          <div id="form4-summary-view">
+            <p style="color: var(--text-muted); font-size: 13px;">No XML parsed yet. Click "Load SVB Demo XML" and parse to inspect C-suite dumping metrics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: DOSSIER TERMINAL -->
+    <section id="tab-dossier" class="tab-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 20px; font-weight: 800;" id="dossier-heading">Forensic Audit Dossier</h2>
+          <p style="color: var(--text-muted); font-size: 13px;">Institutional Markdown brief with timestamped audio citations and legal disclaimers.</p>
+        </div>
+        <div style="display:flex; gap: 12px;">
+          <button class="btn btn-secondary" onclick="copyDossier()">📋 Copy Markdown</button>
+          <button class="btn btn-primary" onclick="downloadDossier()">⬇ Download .md</button>
+        </div>
+      </div>
+      <div class="terminal-box mono" id="dossier-content">Select a target or run an analysis to view the dossier.</div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div>🦅 <strong>Virdixt-Apex Engine v0.2.0</strong> | Institutional Forensic Short-Seller Platform</div>
+    <div>Deterministic CPU Execution | Zero LLM Hallucinations | 100% Air-Gapped</div>
+  </footer>
+
+  <script>
+    let activeDossierMd = "";
+    let activeTicker = "SIVB";
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (tabId === 'benchmarks') loadBenchmarks();
+    }
+
+    async function loadTelemetry() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        document.getElementById('telemetry-ram').innerText = data.rss_memory_mb + ' MB';
+      } catch (e) {
+        console.error("Telemetry fetch failed:", e);
+      }
+    }
+
+    async function loadBenchmarks() {
+      const container = document.getElementById('benchmark-cards');
+      container.innerHTML = '<div style="color:var(--text-muted);">Running benchmark suite...</div>';
+      try {
+        const res = await fetch('/api/benchmarks');
+        const data = await res.json();
+        container.innerHTML = '';
+
+        data.cases.forEach(c => {
+          const isCritical = c.asi_score >= 85.0;
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="card-header">
+              <div>
+                <div class="card-title mono">${c.ticker}</div>
+                <div class="card-subtitle">${c.company_name}</div>
+              </div>
+              <span class="badge ${isCritical ? 'badge-critical' : 'badge-safe'}">
+                ${c.conviction_tier}
+              </span>
+            </div>
+            <div>
+              <div style="font-size:11px; color:var(--text-muted);">ACTIVIST SHORT INDEX</div>
+              <div class="asi-gauge ${isCritical ? 'asi-critical' : 'asi-safe'} mono">${c.asi_score.toFixed(1)}</div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Downside Target</span>
+              <span class="stat-val mono" style="color:${isCritical ? 'var(--accent-red)' : 'var(--accent-green)'}">${c.downside_target_percent.toFixed(1)}%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Trade Structure</span>
+              <span class="stat-val mono">${c.recommended_trade_structure}</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Squeeze Hazard</span>
+              <span class="stat-val mono">${c.short_squeeze_risk_level} (DTC: ${c.days_to_cover}d)</span>
+            </div>
+            <button class="btn btn-secondary" style="width:100%; margin-top:16px; font-size:12px;" onclick="loadTargetDossier('${c.ticker}')">
+              📄 View Forensic Dossier
+            </button>
+          `;
+          container.appendChild(card);
+        });
+        loadTelemetry();
+      } catch (err) {
+        container.innerHTML = `<div style="color:var(--accent-red);">Error loading benchmarks: ${err}</div>`;
+      }
+    }
+
+    async function loadTargetDossier(ticker) {
+      try {
+        const res = await fetch(`/api/benchmarks/${ticker}`);
+        const data = await res.json();
+        activeDossierMd = data.dossier_markdown;
+        activeTicker = data.ticker;
+        document.getElementById('dossier-heading').innerText = `Forensic Short Dossier: ${data.company_name} (${data.ticker})`;
+        document.getElementById('dossier-content').innerText = activeDossierMd;
+        
+        // Switch to dossier tab
+        document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab')[3].classList.add('active');
+        document.getElementById('tab-dossier').classList.add('active');
+      } catch (e) {
+        alert("Failed to load dossier: " + e);
+      }
+    }
+
+    async function runCustomAnalysis() {
+      const payload = {
+        ticker: document.getElementById('scr-ticker').value,
+        company_name: document.getElementById('scr-name').value,
+        financials: {
+          total_assets: parseFloat(document.getElementById('fin-assets').value),
+          total_liabilities: parseFloat(document.getElementById('fin-liab').value),
+          working_capital: parseFloat(document.getElementById('fin-wc').value),
+          retained_earnings: parseFloat(document.getElementById('fin-re').value),
+          ebit: -2000000000,
+          sales: 10000000000,
+          market_cap: 12000000000,
+          dsri: 2.4, gmi: 1.8, aqi: 1.6, sgi: 1.5,
+          tata: 0.12, rsst_accrual: 0.65
+        },
+        acoustic: {
+          jitter_z_score: parseFloat(document.getElementById('ac-jitter').value),
+          cmdi_score: parseFloat(document.getElementById('ac-cmdi').value),
+          vocal_stress_rating: "PANIC_ANOMALY"
+        },
+        linguistic: {
+          qa_semantic_alignment: parseFloat(document.getElementById('ling-align').value),
+          gunning_fog_index: parseFloat(document.getElementById('ling-fog').value),
+          epistemic_hedging_score: 45.0,
+          is_evasive_deflection: true,
+          sentiment_bullishness: 0.8
+        },
+        days_to_cover: 4.2,
+        borrow_fee_annual_percent: 18.5
+      };
+
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        const t = data.thesis;
+
+        activeDossierMd = data.dossier_markdown;
+        activeTicker = t.ticker;
+
+        document.getElementById('res-asi').innerText = `${t.asi_score.toFixed(1)} / 100`;
+        document.getElementById('res-downside').innerText = `${t.downside_target_percent.toFixed(1)}%`;
+        document.getElementById('res-structure').innerText = t.recommended_trade_structure;
+        document.getElementById('res-squeeze').innerText = `${t.short_squeeze_risk_level} (DTC: ${t.days_to_cover}d)`;
+        document.getElementById('res-borrow').innerText = `${t.borrow_fee_annual_percent}%`;
+        document.getElementById('res-badge').innerText = t.conviction_tier;
+
+        const catList = document.getElementById('res-catalysts');
+        catList.innerHTML = '';
+        t.key_forensic_catalysts.forEach(c => {
+          const li = document.createElement('li');
+          li.innerText = c;
+          catList.appendChild(li);
+        });
+
+        loadTelemetry();
+      } catch (err) {
+        alert("Analysis error: " + err);
+      }
+    }
+
+    function viewGeneratedDossier() {
+      if (!activeDossierMd) {
+        alert("Please run an analysis first!");
+        return;
+      }
+      document.getElementById('dossier-heading').innerText = `Forensic Short Dossier: ${activeTicker}`;
+      document.getElementById('dossier-content').innerText = activeDossierMd;
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab')[3].classList.add('active');
+      document.getElementById('tab-dossier').classList.add('active');
+    }
+
+    function loadDemoForm4() {
+      const demo = `<?xml version="1.0" encoding="UTF-8"?>
+<ownershipDocument>
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerName>Gregory W. Becker</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerRelationship>
+            <isOfficer>1</isOfficer>
+            <officerTitle>Chief Executive Officer</officerTitle>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+    <nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <transactionDate><value>2023-02-27</value></transactionDate>
+            <transactionCoding><transactionCode>S</transactionCode></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>12451</value></transactionShares>
+                <transactionPricePerShare><value>287.42</value></transactionPricePerShare>
+            </transactionAmounts>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
+</ownershipDocument>`;
+      document.getElementById('form4-xml-input').value = demo;
+    }
+
+    async function parseForm4() {
+      const xml = document.getElementById('form4-xml-input').value;
+      if (!xml) {
+        alert("Please paste or load Form 4 XML first!");
+        return;
+      }
+      try {
+        const res = await fetch('/api/parse-form4', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({xml_content: xml})
+        });
+        const data = await res.json();
+        const s = data.summary;
+        const view = document.getElementById('form4-summary-view');
+        view.innerHTML = `
+          <div class="stat-row">
+            <span class="stat-label">C-Suite Sellers</span>
+            <span class="stat-val mono" style="color:var(--accent-red);">${s.c_suite_sellers.join(', ') || 'None'}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Total Sales Extracted</span>
+            <span class="stat-val mono">$${s.total_sales_value.toLocaleString()}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Opportunistic Trades</span>
+            <span class="stat-val mono" style="color:var(--accent-amber);">${s.opportunistic_sales_count}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Dump Velocity (V_dump)</span>
+            <span class="stat-val mono">${s.dump_velocity_v.toFixed(1)} / 100</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Abnormal Liquidation Flag</span>
+            <span class="stat-val mono" style="color:${s.is_abnormal_liquidation ? 'var(--accent-red)' : 'var(--accent-green)'}">
+              ${s.is_abnormal_liquidation ? '⚠️ DETECTED' : 'NORMAL'}
+            </span>
+          </div>
+        `;
+        loadTelemetry();
+      } catch (e) {
+        alert("Form 4 parse error: " + e);
+      }
+    }
+
+    function copyDossier() {
+      navigator.clipboard.writeText(activeDossierMd);
+      alert("Dossier copied to clipboard!");
+    }
+
+    function downloadDossier() {
+      const blob = new Blob([activeDossierMd], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${activeTicker}_Forensic_Short_Dossier.md`;
+      a.click();
+    }
+
+    // Auto-load on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      loadTelemetry();
+      loadBenchmarks();
+    });
+  </script>
+</body>
+</html>

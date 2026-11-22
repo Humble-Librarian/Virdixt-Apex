@@ -126,6 +126,25 @@ class TestForm4Parser:
         txs = Form4Parser.parse_xml_string("<corrupt<xml>>>")
         assert txs == []
 
+    def test_malicious_entity_expansion_blocked(self):
+        # Billion Laughs / entity expansion attack payload
+        evil_xml = """<?xml version="1.0"?>
+        <!DOCTYPE lolz [
+         <!ENTITY lol "lol">
+         <!ELEMENT lolz (#PCDATA)>
+         <!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">
+        ]>
+        <ownershipDocument>&lol1;</ownershipDocument>
+        """
+        txs = Form4Parser.parse_xml_string(evil_xml)
+        assert txs == []  # Rejected by security guard before parsing
+
+    def test_oversize_xml_payload_rejected(self):
+        # Oversize payload exceeding MAX_XML_PAYLOAD_BYTES
+        huge_xml = "<ownershipDocument>" + (" " * (11 * 1024 * 1024)) + "</ownershipDocument>"
+        txs = Form4Parser.parse_xml_string(huge_xml)
+        assert txs == []
+
     def test_parsing_latency_under_sla(self):
         watchdog = MemoryWatchdog()
         _, metrics = watchdog.monitor(

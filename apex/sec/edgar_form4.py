@@ -21,28 +21,40 @@ C_SUITE_TITLES = {
     "director", "executive chairman"
 }
 
+# Maximum allowed XML payload size (10 MB) to block memory exhaustion
+MAX_XML_PAYLOAD_BYTES = 10 * 1024 * 1024
+
 
 class Form4Parser:
-    """Fast XML parser for SEC Form 4 (Statement of Changes in Beneficial Ownership)."""
+    """Fast, hardened XML parser for SEC Form 4 (Statement of Changes in Beneficial Ownership)."""
 
     @classmethod
     def parse_xml_string(cls, xml_content: str) -> List[InsiderTransaction]:
-        """Parses raw Form 4 XML content into structured transactions."""
+        """Parses raw Form 4 XML content with length validation and entity expansion protection."""
+        if not xml_content or len(xml_content.encode("utf-8")) > MAX_XML_PAYLOAD_BYTES:
+            return []
+
+        # Security check: Block DTD and Entity Expansion (Billion Laughs protection)
+        upper_content = xml_content.upper()
+        if "<!ENTITY" in upper_content or "<!DOCTYPE" in upper_content:
+            return []
+
         try:
             root = ET.fromstring(xml_content)
-        except ET.ParseError:
+        except (ET.ParseError, ValueError):
             return []
         return cls._extract_transactions(root)
 
     @classmethod
     def parse_xml_file(cls, file_path: Path) -> List[InsiderTransaction]:
-        """Parses a local Form 4 XML file."""
+        """Parses a local Form 4 XML file with size checking and entity expansion protection."""
         try:
-            tree = ET.parse(file_path)
-            root = tree.getroot()
-        except (ET.ParseError, FileNotFoundError):
+            if not file_path.exists() or file_path.stat().st_size > MAX_XML_PAYLOAD_BYTES:
+                return []
+            content = file_path.read_text(encoding="utf-8")
+            return cls.parse_xml_string(content)
+        except (ET.ParseError, FileNotFoundError, OSError):
             return []
-        return cls._extract_transactions(root)
 
     @classmethod
     def _extract_transactions(cls, root: ET.Element) -> List[InsiderTransaction]:

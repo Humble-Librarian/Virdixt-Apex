@@ -3,6 +3,7 @@ Virdixt-Apex Global Configuration & Hardware Boundaries
 Enforces deterministic runtime invariants and hardware ceilings for Intel i5 / 8GB RAM execution.
 """
 
+import os
 from pathlib import Path
 from pydantic import BaseModel, Field
 
@@ -19,7 +20,7 @@ class HardwareEnvelopeConfig(BaseModel):
 class SecEdgarConfig(BaseModel):
     """SEC EDGAR API parameters and rate limit controls."""
     user_agent: str = Field(
-        default="VirdixtApexResearch research@virdixt-apex.internal",
+        default_factory=lambda: os.getenv("SEC_USER_AGENT", "VirdixtApexResearch research@virdixt-apex.internal"),
         description="Mandatory descriptive User-Agent header required by SEC"
     )
     submissions_endpoint: str = Field(

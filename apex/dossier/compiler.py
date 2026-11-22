@@ -136,6 +136,22 @@ class ForensicDossierCompiler:
                 "> **Execution Directives:** Low borrow fee and liquid float permit **Outright Equity Short** positions with standard stop-loss orders."
             )
         lines.append("")
+
+        # 10. Mandatory Legal Disclaimer & Research Disclosures
+        lines.append("## 7. Mandatory Legal Disclaimers & Non-Commercial Disclosures")
+        lines.append(
+            "> [!IMPORTANT]\n"
+            "> **Research Opinion Only:** This document is generated autonomously by an experimental quantitative algorithmic research system. "
+            "It reflects non-commercial statistical interpretations, mathematical ratios, and acoustic signal processing derived exclusively from "
+            "publicly available regulatory disclosures and earnings call transcripts. It does not constitute investment advice, financial promotion, "
+            "tax advice, legal counsel, or an offer or solicitation to buy, sell, or short any security or financial instrument.\n"
+            ">\n"
+            "> **No Fiduciary Duty & Assumption of Risk:** The authors, maintainers, and contributors hold no fiduciary duty toward readers. "
+            "Short-selling and derivatives trading carry substantial risk of loss, including infinite theoretical loss on uncovered equity shorts. "
+            "All statements herein regarding corporate accounting manipulation or executive deception represent algorithmic model outputs and "
+            "academic opinions protected under freedom of speech and fair comment, not verified statements of adjudicated fact."
+        )
+        lines.append("")
         lines.append("---")
         lines.append("*Generated autonomously by Virdixt-Apex Engine. Deterministic mathematical execution. 100% Air-Gapped.*")
 

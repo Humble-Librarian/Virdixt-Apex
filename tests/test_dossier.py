@@ -98,6 +98,9 @@ class TestForensicDossierCompiler:
         assert "## 4. Linguistic Obfuscation & Evasion Analysis" in md
         assert "## 5. SEC Form 4 C-Suite Capital Outflow" in md
         assert "## 6. Asymmetric Trade Structuring & Squeeze Management" in md
+        assert "## 7. Mandatory Legal Disclaimers & Non-Commercial Disclosures" in md
+        assert "Research Opinion Only" in md
+        assert "No Fiduciary Duty & Assumption of Risk" in md
 
         # Content exactness checks
         assert "-1.45" in md  # Beneish score
